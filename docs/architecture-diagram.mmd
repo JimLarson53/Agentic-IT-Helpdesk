@@ -1,0 +1,40 @@
+flowchart TD
+    Analyst["Help desk analyst or admin"] --> Streamlit["Streamlit UI"]
+    Analyst --> FastAPI["FastAPI API"]
+
+    Streamlit --> Container["AppContainer"]
+    FastAPI --> Container
+
+    Container --> Runner["SupportAgentRunner"]
+    Container --> DocumentService["DocumentService"]
+    Container --> ApprovalService["ApprovalService"]
+    Container --> AuditService["AuditService"]
+    Container --> KBService["KBService"]
+
+    subgraph AgentFlow["Required Agent Flow"]
+        Intake["intake"] --> Classify["classify"]
+        Classify --> Retrieve["retrieve"]
+        Retrieve --> Reason["reason"]
+        Reason --> Draft["draft_solution"]
+        Draft --> Safety["safety_check"]
+        Safety --> Final["final_answer"]
+    end
+
+    Runner --> AgentFlow
+    DocumentService --> Loader["Document loaders"]
+    Loader --> Chunker["Metadata-aware chunker"]
+    Chunker --> Retriever["Retriever"]
+    Runner --> Retriever
+    Retriever --> Embeddings["HashingEmbeddingModel"]
+    Retriever --> VectorStore["LocalVectorStore"]
+    VectorStore --> Citations["Citations and scores"]
+    Citations --> AgentFlow
+
+    Safety --> CommandSafety["Command safety"]
+    Safety --> PromptInjection["Prompt injection checks"]
+    Safety --> Privacy["Privacy redaction"]
+    Safety --> Grounding["Grounding checks"]
+
+    ApprovalService --> SQLite["SQLite data/app.sqlite3"]
+    AuditService --> SQLite
+    Final --> Response["Cited final answer and approval requirements"]

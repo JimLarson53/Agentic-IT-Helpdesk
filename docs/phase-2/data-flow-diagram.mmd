@@ -1,0 +1,37 @@
+sequenceDiagram
+    participant User as Analyst
+    participant UI as Streamlit UI
+    participant API as FastAPI
+    participant Service as Ticket Workflow Service
+    participant Graph as LangGraph
+    participant RAG as RAG Service
+    participant Safety as Safety Layer
+    participant Approval as Approval Service
+    participant Audit as Audit Service
+
+    User->>UI: Submit ticket
+    UI->>API: POST /api/v1/tickets/analyze
+    API->>Service: Validate and start workflow
+    Service->>Audit: Record workflow_started
+    Service->>Graph: Invoke graph with run_id and ticket
+    Graph->>Graph: intake
+    Graph->>Graph: classify
+    Graph->>RAG: retrieve relevant sources
+    RAG-->>Graph: chunks, citations, scores, injection flags
+    Graph->>Graph: reason
+    Graph->>Graph: draft_solution
+    Graph->>Safety: safety_check
+    Safety-->>Graph: findings, command risk, grounding status
+    Graph->>Graph: final_answer
+    Graph-->>Service: final state
+    Service->>Approval: Create pending approvals for proposed actions
+    Approval->>Audit: Record approval_created
+    Service->>Audit: Record workflow_completed
+    Service-->>API: Final response
+    API-->>UI: Answer, citations, commands, approvals
+    UI-->>User: Display result and approval controls
+    User->>UI: Approve or reject suggested action
+    UI->>API: POST /api/v1/approvals/{id}/decision
+    API->>Approval: Store decision
+    Approval->>Audit: Record approval_decision
+    API-->>UI: Updated approval status

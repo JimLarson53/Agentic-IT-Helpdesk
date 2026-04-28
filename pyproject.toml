@@ -1,0 +1,42 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "secure-agentic-it-support-copilot"
+version = "0.1.0"
+description = "Secure agentic IT support assistant with RAG, command safety, approvals, and evaluation."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+  "fastapi>=0.115",
+  "langgraph>=0.6",
+  "pydantic>=2.12",
+  "streamlit>=1.40",
+  "uvicorn>=0.30",
+]
+
+[project.optional-dependencies]
+rag = [
+  "chromadb>=0.5",
+  "sentence-transformers>=5.0",
+]
+dev = [
+  "httpx>=0.28",
+  "pytest>=8.0",
+  "ruff>=0.8",
+]
+
+[tool.setuptools.package-dir]
+"" = "src"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]

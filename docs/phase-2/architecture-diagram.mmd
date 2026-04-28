@@ -1,0 +1,57 @@
+flowchart TD
+    Analyst["Help Desk Analyst / Sysadmin"] --> UI["Streamlit UI"]
+    Analyst --> API["FastAPI Backend"]
+    UI --> API
+
+    API --> Schemas["Pydantic Schemas"]
+    API --> Services["Application Services"]
+
+    Services --> TicketSvc["Ticket Workflow Service"]
+    Services --> ApprovalSvc["Approval Service"]
+    Services --> AuditSvc["Audit Service"]
+    Services --> DocSvc["Document Ingestion Service"]
+
+    TicketSvc --> Graph["LangGraph Workflow"]
+    Graph --> Intake["intake"]
+    Intake --> Classify["classify"]
+    Classify --> Retrieve["retrieve"]
+    Retrieve --> Reason["reason"]
+    Reason --> Draft["draft_solution"]
+    Draft --> Safety["safety_check"]
+    Safety --> Final["final_answer"]
+
+    Retrieve --> RAG["RAG Service"]
+    RAG --> Chunking["Metadata-Aware Chunking"]
+    RAG --> Embeddings["Embedding Adapter"]
+    RAG --> VectorStore["Chroma Vector Store Adapter"]
+
+    DocSvc --> Loaders["Document Loaders"]
+    Loaders --> Chunking
+    Embeddings --> VectorStore
+
+    Graph --> ModelAdapter["LLM Adapter"]
+    ModelAdapter --> Deterministic["Deterministic Test Model"]
+    ModelAdapter --> Provider["Optional Provider Model"]
+
+    Safety --> CommandSafety["Command Safety Classifier"]
+    Safety --> Privacy["PII/Secret Redaction"]
+    Safety --> Injection["Prompt Injection Detector"]
+    Safety --> Grounding["Grounding/Citation Check"]
+
+    Final --> ApprovalSvc
+    ApprovalSvc --> SQLite["SQLite Audit + Approval DB"]
+    AuditSvc --> SQLite
+    TicketSvc --> AuditSvc
+
+    VectorStore --> VectorData["Local Vector Data"]
+    SQLite --> AuditLog["Audit Events"]
+
+    classDef trusted fill:#e8f5e9,stroke:#2e7d32,color:#111;
+    classDef untrusted fill:#fff3e0,stroke:#ef6c00,color:#111;
+    classDef safety fill:#e3f2fd,stroke:#1565c0,color:#111;
+    classDef storage fill:#f3e5f5,stroke:#6a1b9a,color:#111;
+
+    class API,Schemas,Services,TicketSvc,ApprovalSvc,AuditSvc,DocSvc,Graph trusted;
+    class Analyst,Loaders,Provider untrusted;
+    class Safety,CommandSafety,Privacy,Injection,Grounding safety;
+    class SQLite,VectorStore,VectorData,AuditLog storage;
