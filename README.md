@@ -1,6 +1,6 @@
-# Secure Agentic IT Support Copilot
+# Agentic IT Support
 
-Secure Agentic IT Support Copilot is a Python-first IT support assistant for help desk analysts, system administrators, MSPs, security-conscious IT teams, and technical staffing teams. It triages tickets, retrieves relevant support knowledge, drafts grounded troubleshooting responses, suggests risk-scored PowerShell or Bash commands, generates KB article drafts, and records human approval before any command or action.
+Agentic IT Support is a Python-first IT support assistant for help desk analysts, system administrators, MSPs, security-conscious IT teams, and technical staffing teams. It triages tickets, retrieves relevant support knowledge, drafts grounded troubleshooting responses, suggests risk-scored PowerShell or Bash commands, generates KB article drafts, and records human approval before any command or action.
 
 The MVP is intentionally local and safe by default:
 
