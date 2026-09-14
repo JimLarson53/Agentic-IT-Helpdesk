@@ -65,7 +65,7 @@ class Retriever:
         return self.ingest_documents(documents)
 
     def retrieve(
-        self,1
+        self,
         query: str,
         *,
         document_types: set[DocumentType] | None = None,
