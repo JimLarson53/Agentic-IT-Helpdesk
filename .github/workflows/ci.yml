@@ -47,7 +47,7 @@ jobs:
         run: python -m itsupport_copilot.evals.runner
 
       - name: Compile check
-        run: python -m compileall -q src app api tests1
+        run: python -m compileall -q src app api tests
 
       - name: Dependency consistency
         run: python -m pip check
