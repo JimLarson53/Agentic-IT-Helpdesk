@@ -47,7 +47,7 @@ class AuditService:
 def _redact_metadata(metadata: dict[str, object]) -> dict[str, object]:
     redacted: dict[str, object] = {}
     for key, value in metadata.items():
-        if isinstance(value, str):
+        if isinstance(value, str):1
             redacted[key] = redact_sensitive_text(value)
         else:
             redacted[key] = value
