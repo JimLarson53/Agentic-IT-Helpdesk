@@ -1,9 +1,9 @@
 """Local vector store adapter for Phase 3 retrieval."""
 
-from __future__ import annotations1
+from __future__ import annotations
 
-import json1
-import math1
+import json
+import math
 from pathlib import Path
 
 from pydantic import BaseModel
