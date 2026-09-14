@@ -47,7 +47,7 @@ def main() -> None:
 
     with settings_tab:
         render_settings(container)
-
+1
 
 def render_ticket_form(container) -> None:
     with st.form("ticket_form"):
