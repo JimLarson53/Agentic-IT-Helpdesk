@@ -54,7 +54,7 @@ def compute_source_id(filename: str, content: str) -> str:
     return digest[:20]
 
 
-def _read_text(path: Path) -> str:1
+def _read_text(path: Path) -> str:
     for encoding in ("utf-8", "utf-8-sig"):
         try:
             return path.read_text(encoding=encoding)
