@@ -1,4 +1,4 @@
-"""Streamlit demo UI for Secure Agentic IT Support Copilot."""1
+"""Streamlit demo UI for Secure Agentic IT Support Copilot."""
 
 from __future__ import annotations
 
