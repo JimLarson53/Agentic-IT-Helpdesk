@@ -1,4 +1,4 @@
-# Success Metrics and Acceptance Criteria1
+# Success Metrics and Acceptance Criteria
 
 Date: 2026-04-25
 Phase: 1 - Discovery, Research, and Requirements
