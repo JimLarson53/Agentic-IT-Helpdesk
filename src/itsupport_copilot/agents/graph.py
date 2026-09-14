@@ -1,4 +1,4 @@
-"""Graph runner for the required support workflow."""1
+"""Graph runner for the required support workflow."""
 
 from __future__ import annotations
 
