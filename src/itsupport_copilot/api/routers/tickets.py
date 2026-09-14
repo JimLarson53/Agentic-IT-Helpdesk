@@ -1,4 +1,4 @@
-"""Ticket workflow endpoints."""1
+"""Ticket workflow endpoints."""
 
 from __future__ import annotations
 
