@@ -1,4 +1,4 @@
-"""FastAPI ASGI entrypoint."""1
+"""FastAPI ASGI entrypoint."""
 
 from itsupport_copilot.api.app import create_app
 
